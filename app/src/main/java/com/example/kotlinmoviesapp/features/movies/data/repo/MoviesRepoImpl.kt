@@ -1,0 +1,37 @@
+package com.example.kotlinmoviesapp.features.movies.data.repo
+
+import androidx.lifecycle.LiveData
+import com.example.kotlinmoviesapp.core.constants.NOW_PLAYING_KEY
+import com.example.kotlinmoviesapp.core.constants.TOP_RATED_KEY
+import com.example.kotlinmoviesapp.features.movies.data.datasources.local.MoviesLocalDataSource
+import com.example.kotlinmoviesapp.features.movies.data.datasources.remote.MoviesRemoteDataSource
+import com.example.kotlinmoviesapp.features.movies.domain.entities.MovieEntity
+import com.example.kotlinmoviesapp.features.movies.domain.repo.MoviesRepo
+import javax.inject.Inject
+
+class MoviesRepoImpl @Inject constructor (
+    private val moviesRemoteDataSource: MoviesRemoteDataSource,
+    private val moviesLocalDataSource: MoviesLocalDataSource
+): MoviesRepo() {
+    override suspend fun getAllMovies(category: String): LiveData<List<MovieEntity>> = moviesLocalDataSource.getAllMovies(category)
+
+    override suspend fun updateAllMovies(category: String) {
+        when(category){
+            TOP_RATED_KEY -> {
+                val movies = moviesRemoteDataSource.getTopRatedMovies()?.results?.map {
+                    it.toMovieEntity().copy(category = TOP_RATED_KEY)
+                }
+                moviesLocalDataSource.deleteAllMovies(category)
+                moviesLocalDataSource.insertAllMovies(movies!!)
+            }
+            NOW_PLAYING_KEY -> {
+                val movies = moviesRemoteDataSource.getNowPlayingMovies()?.results?.map {
+                    it.toMovieEntity().copy(category = NOW_PLAYING_KEY)
+                }
+                moviesLocalDataSource.deleteAllMovies(category)
+                moviesLocalDataSource.insertAllMovies(movies!!)
+            }
+        }
+    }
+
+}
