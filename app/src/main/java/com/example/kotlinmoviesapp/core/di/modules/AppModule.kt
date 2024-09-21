@@ -7,6 +7,9 @@ import com.example.kotlinmoviesapp.features.movies.data.datasources.local.Movies
 import com.example.kotlinmoviesapp.features.movies.data.datasources.remote.MoviesRemoteDataSource
 import com.example.kotlinmoviesapp.features.movies.data.repo.MoviesRepoImpl
 import com.example.kotlinmoviesapp.features.movies.domain.repo.MoviesRepo
+import com.example.kotlinmoviesapp.features.movies.domain.usecases.GetAllMoviesUsecase
+import com.example.kotlinmoviesapp.features.movies.domain.usecases.GetMovieByIdUsecase
+import com.example.kotlinmoviesapp.features.movies.domain.usecases.UpdateAllMoviesUsecase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -45,5 +48,16 @@ class AppModule {
         dao : MoviesDAO
     ): MoviesLocalDataSource = MoviesLocalDataSource(dao)
 
+    @Provides
+    @Singleton
+    fun providesGetAllMoviesUsecase(MoviesRepo: MoviesRepo): GetAllMoviesUsecase = GetAllMoviesUsecase(MoviesRepo)
+
+    @Provides
+    @Singleton
+    fun providesUpdateAllMoviesUsecase(MoviesRepo: MoviesRepo): UpdateAllMoviesUsecase = UpdateAllMoviesUsecase(MoviesRepo)
+
+    @Provides
+    @Singleton
+    fun providesGetMovieByIdUsecase(MoviesRepo: MoviesRepo): GetMovieByIdUsecase = GetMovieByIdUsecase(MoviesRepo)
 
 }
