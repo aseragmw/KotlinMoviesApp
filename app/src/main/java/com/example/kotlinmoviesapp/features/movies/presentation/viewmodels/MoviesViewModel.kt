@@ -23,6 +23,21 @@ class MoviesViewModel @Inject constructor(
     private val _nowPlayingMovies = MutableLiveData<List<MovieEntity>>()
     val nowPlayingMovies: LiveData<List<MovieEntity>> = _nowPlayingMovies
 
+    private var _selectedMovie : MutableLiveData<MovieEntity> = MutableLiveData()
+    val selectedMovie : LiveData<MovieEntity> = _selectedMovie
+
+    fun getMovieById(id:Int){
+        viewModelScope.launch {
+            try {
+                val movie = moviesRepo.getMovieById(id)
+                movie.observeForever {
+                    _selectedMovie.postValue(it)
+                }
+            } catch (e: Exception) {
+                Log.e("MoviesViewModel", "Error fetching movies: ${e.message}")
+            }
+        }
+    }
     fun getAllMovies(category: String) {
         viewModelScope.launch {
             try {

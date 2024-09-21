@@ -100,6 +100,10 @@ dependencies {
 
     //ViewModel
     implementation("androidx.fragment:fragment-ktx:1.8.3")
+
+    //Navigation
+    val nav_version = "2.8.1"
+    implementation("androidx.navigation:navigation-compose:$nav_version")
 }
 
 kapt {

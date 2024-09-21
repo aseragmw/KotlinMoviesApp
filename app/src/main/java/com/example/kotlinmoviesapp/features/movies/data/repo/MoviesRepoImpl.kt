@@ -9,14 +9,15 @@ import com.example.kotlinmoviesapp.features.movies.domain.entities.MovieEntity
 import com.example.kotlinmoviesapp.features.movies.domain.repo.MoviesRepo
 import javax.inject.Inject
 
-class MoviesRepoImpl @Inject constructor (
+class MoviesRepoImpl @Inject constructor(
     private val moviesRemoteDataSource: MoviesRemoteDataSource,
     private val moviesLocalDataSource: MoviesLocalDataSource
-): MoviesRepo() {
-    override suspend fun getAllMovies(category: String): LiveData<List<MovieEntity>> = moviesLocalDataSource.getAllMovies(category)
+) : MoviesRepo() {
+    override suspend fun getAllMovies(category: String): LiveData<List<MovieEntity>> =
+        moviesLocalDataSource.getAllMovies(category)
 
     override suspend fun updateAllMovies(category: String) {
-        when(category){
+        when (category) {
             TOP_RATED_KEY -> {
                 val movies = moviesRemoteDataSource.getTopRatedMovies()?.results?.map {
                     it.toMovieEntity().copy(category = TOP_RATED_KEY)
@@ -24,6 +25,7 @@ class MoviesRepoImpl @Inject constructor (
                 moviesLocalDataSource.deleteAllMovies(category)
                 moviesLocalDataSource.insertAllMovies(movies!!)
             }
+
             NOW_PLAYING_KEY -> {
                 val movies = moviesRemoteDataSource.getNowPlayingMovies()?.results?.map {
                     it.toMovieEntity().copy(category = NOW_PLAYING_KEY)
@@ -32,6 +34,10 @@ class MoviesRepoImpl @Inject constructor (
                 moviesLocalDataSource.insertAllMovies(movies!!)
             }
         }
+    }
+
+    override  fun getMovieById(id: Int): LiveData<MovieEntity> {
+       return moviesLocalDataSource.getMovieById(id)
     }
 
 }

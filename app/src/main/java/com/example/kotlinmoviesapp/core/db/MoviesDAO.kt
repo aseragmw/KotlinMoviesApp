@@ -16,4 +16,7 @@ interface MoviesDAO {
 
     @Query("DELETE FROM Movies where category = :category")
     suspend fun deleteAllMovies(category: String)
+
+    @Query("SELECT * FROM Movies where id = :id")
+    fun getMovieById(id:Int):LiveData<MovieEntity>
 }

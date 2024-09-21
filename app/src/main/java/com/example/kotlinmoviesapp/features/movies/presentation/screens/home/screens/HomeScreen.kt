@@ -17,6 +17,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.kotlinmoviesapp.core.constants.NOW_PLAYING_KEY
 import com.example.kotlinmoviesapp.core.constants.TOP_RATED_KEY
@@ -26,7 +27,7 @@ import com.example.kotlinmoviesapp.features.movies.presentation.screens.home.com
 import com.example.kotlinmoviesapp.features.movies.presentation.viewmodels.MoviesViewModel
 
 @Composable
-fun HomeScreen(viewModel: MoviesViewModel) {
+fun HomeScreen(viewModel: MoviesViewModel,navController: NavController) {
     viewModel.getAllMovies(TOP_RATED_KEY)
     viewModel.getAllMovies(NOW_PLAYING_KEY)
 
@@ -57,7 +58,7 @@ fun HomeScreen(viewModel: MoviesViewModel) {
                         modifier = Modifier.fillMaxSize()
                     ) {
                         items(movieList.size) { index ->
-                            MovieCard(movie = movieList[index])
+                            MovieCard(viewModel,movie = movieList[index],navController)
                         }
                     }
                 }
