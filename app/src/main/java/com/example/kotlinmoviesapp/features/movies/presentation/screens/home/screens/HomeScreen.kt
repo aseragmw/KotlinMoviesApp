@@ -71,8 +71,6 @@ fun HomeScreen(viewModel: MoviesViewModel, navController: NavController) {
 
             }
             Box(modifier = Modifier.height(20.dp))
-
-
             movies.value?.let { movieList ->
                 if (movieList.isEmpty()) {
                     Text(
