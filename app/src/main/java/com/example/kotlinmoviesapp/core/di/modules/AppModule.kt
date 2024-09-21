@@ -7,9 +7,11 @@ import com.example.kotlinmoviesapp.features.movies.data.datasources.local.Movies
 import com.example.kotlinmoviesapp.features.movies.data.datasources.remote.MoviesRemoteDataSource
 import com.example.kotlinmoviesapp.features.movies.data.repo.MoviesRepoImpl
 import com.example.kotlinmoviesapp.features.movies.domain.repo.MoviesRepo
+import com.example.kotlinmoviesapp.features.movies.domain.usecases.GetAllFavouritesUsecase
 import com.example.kotlinmoviesapp.features.movies.domain.usecases.GetAllMoviesUsecase
 import com.example.kotlinmoviesapp.features.movies.domain.usecases.GetMovieByIdUsecase
 import com.example.kotlinmoviesapp.features.movies.domain.usecases.UpdateAllMoviesUsecase
+import com.example.kotlinmoviesapp.features.movies.domain.usecases.UpdateMovieUsecase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -59,5 +61,13 @@ class AppModule {
     @Provides
     @Singleton
     fun providesGetMovieByIdUsecase(MoviesRepo: MoviesRepo): GetMovieByIdUsecase = GetMovieByIdUsecase(MoviesRepo)
+
+    @Provides
+    @Singleton
+    fun providesUpdateMovieUsecase(MoviesRepo: MoviesRepo): UpdateMovieUsecase = UpdateMovieUsecase(MoviesRepo)
+
+    @Provides
+    @Singleton
+    fun providesGetAllFavouritesUsecase(MoviesRepo: MoviesRepo): GetAllFavouritesUsecase = GetAllFavouritesUsecase(MoviesRepo)
 
 }

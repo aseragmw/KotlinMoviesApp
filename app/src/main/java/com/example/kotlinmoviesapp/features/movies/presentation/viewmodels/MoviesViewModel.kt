@@ -8,9 +8,11 @@ import androidx.lifecycle.viewModelScope
 import com.example.kotlinmoviesapp.core.constants.TOP_RATED_KEY
 import com.example.kotlinmoviesapp.features.movies.domain.entities.MovieEntity
 import com.example.kotlinmoviesapp.features.movies.domain.repo.MoviesRepo
+import com.example.kotlinmoviesapp.features.movies.domain.usecases.GetAllFavouritesUsecase
 import com.example.kotlinmoviesapp.features.movies.domain.usecases.GetAllMoviesUsecase
 import com.example.kotlinmoviesapp.features.movies.domain.usecases.GetMovieByIdUsecase
 import com.example.kotlinmoviesapp.features.movies.domain.usecases.UpdateAllMoviesUsecase
+import com.example.kotlinmoviesapp.features.movies.domain.usecases.UpdateMovieUsecase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -20,6 +22,8 @@ class MoviesViewModel @Inject constructor(
     private val getMoviesUsecase: GetAllMoviesUsecase,
     private val updateMoviesUsecase: UpdateAllMoviesUsecase,
     private val getMovieByIdUsecase: GetMovieByIdUsecase,
+    private val updateMovieUsecase: UpdateMovieUsecase,
+    private val getAllFavouritesUsecase: GetAllFavouritesUsecase
 ) : ViewModel() {
 
     private val _topRatedMovies = MutableLiveData<List<MovieEntity>>()
@@ -27,6 +31,9 @@ class MoviesViewModel @Inject constructor(
 
     private val _nowPlayingMovies = MutableLiveData<List<MovieEntity>>()
     val nowPlayingMovies: LiveData<List<MovieEntity>> = _nowPlayingMovies
+
+    private val _favoritesMovies = MutableLiveData<List<MovieEntity>>()
+    val favoritesMovies: LiveData<List<MovieEntity>> = _favoritesMovies
 
     private var _selectedMovie: MutableLiveData<MovieEntity> = MutableLiveData()
     val selectedMovie: LiveData<MovieEntity> = _selectedMovie
@@ -66,6 +73,31 @@ class MoviesViewModel @Inject constructor(
             try {
                 updateMoviesUsecase.invoke(category)
             } catch (e: Exception) {
+                Log.e("MoviesViewModel", "Error fetching movies: ${e.message}")
+            }
+        }
+    }
+
+    fun addOrRemoveFavorite(movie: MovieEntity) {
+        viewModelScope.launch {
+            try {
+                movie.isFavorite = !movie.isFavorite
+                updateMovieUsecase.invoke(movie)
+            } catch (e: Exception) {
+                Log.e("MoviesViewModel", "Error fetching movies: ${e.message}")
+            }
+        }
+    }
+
+    fun getAllFavorites(){
+        viewModelScope.launch {
+            try{
+                val favourites = getAllFavouritesUsecase.invoke()
+                favourites.observeForever { movieList ->
+                    _favoritesMovies.postValue(movieList)
+                }
+            }
+            catch (e:Exception){
                 Log.e("MoviesViewModel", "Error fetching movies: ${e.message}")
             }
         }

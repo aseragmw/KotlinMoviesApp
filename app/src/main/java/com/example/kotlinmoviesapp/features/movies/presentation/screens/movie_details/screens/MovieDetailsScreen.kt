@@ -37,6 +37,7 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.kotlinmoviesapp.R
 import com.example.kotlinmoviesapp.core.utils.MAIN_BG_COLOR
+import com.example.kotlinmoviesapp.core.utils.RED_COLOR
 import com.example.kotlinmoviesapp.core.utils.TEXT_GREY_COLOR
 import com.example.kotlinmoviesapp.core.utils.WHITE_COLOR
 import com.example.kotlinmoviesapp.features.movies.domain.entities.MovieEntity
@@ -84,14 +85,16 @@ fun MovieDetailsScreen(viewModel: MoviesViewModel,navController: NavController) 
                     Icon(
                          imageVector= Icons.Default.Favorite,
                         contentDescription = "Favourite",
-                        tint = WHITE_COLOR,
+                        tint = if(movie.isFavorite) RED_COLOR else WHITE_COLOR,
                         modifier = Modifier
                             .padding(10.dp)
                             .background(Color.Transparent)
                             .padding(end = 30.dp)
                             .align(Alignment.BottomEnd)
                             .size(45.dp)
-                            .clickable {  }
+                            .clickable {
+                                viewModel.addOrRemoveFavorite(movie)
+                            }
                     )
                     Icon(
                         imageVector= Icons.AutoMirrored.Filled.KeyboardArrowLeft,

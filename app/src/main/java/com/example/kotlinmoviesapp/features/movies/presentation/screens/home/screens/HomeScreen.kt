@@ -27,6 +27,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.kotlinmoviesapp.core.constants.FAVOURITES_KEY
 import com.example.kotlinmoviesapp.core.constants.NOW_PLAYING_KEY
 import com.example.kotlinmoviesapp.core.constants.TOP_RATED_KEY
 import com.example.kotlinmoviesapp.core.utils.MAIN_BG_COLOR
@@ -39,11 +40,12 @@ import com.example.kotlinmoviesapp.features.movies.presentation.viewmodels.Movie
 fun HomeScreen(viewModel: MoviesViewModel, navController: NavController) {
     var selectedCategory by remember { mutableStateOf(TOP_RATED_KEY) }
     val movies = if (selectedCategory == TOP_RATED_KEY) {
-        viewModel.getAllMovies(TOP_RATED_KEY)
         viewModel.topRatedMovies.observeAsState()
-    } else {
-        viewModel.getAllMovies(NOW_PLAYING_KEY)
+    } else if(selectedCategory== NOW_PLAYING_KEY){
         viewModel.nowPlayingMovies.observeAsState()
+    }
+    else{
+        viewModel.favoritesMovies.observeAsState()
     }
 
     Scaffold { padding ->
@@ -68,6 +70,10 @@ fun HomeScreen(viewModel: MoviesViewModel, navController: NavController) {
                     selectedCategory = NOW_PLAYING_KEY
 
                 }, fontWeight = FontWeight.SemiBold, fontSize = if(selectedCategory== NOW_PLAYING_KEY) 20.sp else 17.sp, color = if(selectedCategory== NOW_PLAYING_KEY) WHITE_COLOR else TEXT_GREY_COLOR)
+                Text(FAVOURITES_KEY, modifier = Modifier.clickable {
+                    selectedCategory = FAVOURITES_KEY
+
+                }, fontWeight = FontWeight.SemiBold, fontSize = if(selectedCategory== FAVOURITES_KEY) 20.sp else 17.sp, color = if(selectedCategory== FAVOURITES_KEY) WHITE_COLOR else TEXT_GREY_COLOR)
 
             }
             Box(modifier = Modifier.height(20.dp))

@@ -7,4 +7,6 @@ abstract class MoviesRepo {
     abstract suspend fun getAllMovies(category:String): LiveData<List<MovieEntity>>
     abstract suspend fun updateAllMovies(category: String)
     abstract  fun getMovieById(id:Int):LiveData<MovieEntity>
+    abstract suspend fun updateMovie(movie:MovieEntity)
+    abstract fun getAllFavorites():LiveData<List<MovieEntity>>
 }

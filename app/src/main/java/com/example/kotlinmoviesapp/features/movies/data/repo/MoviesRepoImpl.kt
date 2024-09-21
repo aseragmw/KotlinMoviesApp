@@ -36,8 +36,10 @@ class MoviesRepoImpl @Inject constructor(
         }
     }
 
-    override  fun getMovieById(id: Int): LiveData<MovieEntity> {
-       return moviesLocalDataSource.getMovieById(id)
-    }
+    override fun getMovieById(id: Int): LiveData<MovieEntity> = moviesLocalDataSource.getMovieById(id)
+
+    override suspend fun updateMovie(movie: MovieEntity) = moviesLocalDataSource.updateMovie(movie)
+    override fun getAllFavorites(): LiveData<List<MovieEntity>> = moviesLocalDataSource.getAllFavorites()
+
 
 }

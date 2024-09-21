@@ -27,6 +27,7 @@ class MainActivity : ComponentActivity() {
         val viewModel: MoviesViewModel by viewModels()
         viewModel.getAllMovies(TOP_RATED_KEY)
         viewModel.getAllMovies(NOW_PLAYING_KEY)
+        viewModel.getAllFavorites()
         setContent {
             val navController = rememberNavController()
             NavHost(

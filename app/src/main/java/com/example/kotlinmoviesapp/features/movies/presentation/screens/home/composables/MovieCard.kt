@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.kotlinmoviesapp.R
+import com.example.kotlinmoviesapp.core.utils.RED_COLOR
 import com.example.kotlinmoviesapp.core.utils.TEXT_GREY_COLOR
 import com.example.kotlinmoviesapp.core.utils.WHITE_COLOR
 import com.example.kotlinmoviesapp.features.movies.domain.entities.MovieEntity
@@ -62,13 +63,15 @@ fun MovieCard(viewModel: MoviesViewModel, movie: MovieEntity, navController: Nav
                 Icon(
                     imageVector= Icons.Default.Favorite,
                     contentDescription = "Favourite",
-                    tint = WHITE_COLOR,
+                    tint = if(movie.isFavorite) RED_COLOR else WHITE_COLOR,
                     modifier = Modifier
                         .background(Color.Transparent)
                         .padding(end = 15.dp, bottom = 10.dp)
                         .align(Alignment.BottomEnd)
                         .size(30.dp)
-                        .clickable {  }
+                        .clickable {
+                            viewModel.addOrRemoveFavorite(movie)
+                        }
                 )
             }
             Box(modifier= Modifier.height(10.dp))
