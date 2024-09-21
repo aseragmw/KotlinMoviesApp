@@ -1,6 +1,7 @@
 package com.example.kotlinmoviesapp.main
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -17,6 +18,7 @@ import com.example.kotlinmoviesapp.features.movies.presentation.screens.movie_de
 import com.example.kotlinmoviesapp.features.movies.presentation.viewmodels.MoviesViewModel
 import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
+import isInternetAvailable
 
 
 @AndroidEntryPoint
@@ -25,6 +27,13 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         val viewModel: MoviesViewModel by viewModels()
+        if(isInternetAvailable(this)){
+            viewModel.updateAllMovies(TOP_RATED_KEY)
+            viewModel.updateAllMovies(NOW_PLAYING_KEY)
+        }
+        else{
+            Toast.makeText(this,"No Internet Connection",Toast.LENGTH_SHORT).show()
+        }
         viewModel.getAllMovies(TOP_RATED_KEY)
         viewModel.getAllMovies(NOW_PLAYING_KEY)
         viewModel.getAllFavorites()

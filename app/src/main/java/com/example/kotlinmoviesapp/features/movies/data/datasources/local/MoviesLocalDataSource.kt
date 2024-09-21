@@ -13,4 +13,6 @@ class MoviesLocalDataSource @Inject constructor(
     fun getMovieById(id:Int) = moviesDao.getMovieById(id)
     suspend fun updateMovie(movie:MovieEntity) = moviesDao.updateMovie(movie)
     fun getAllFavorites() = moviesDao.getAllFavorites()
+    fun getAllFavoritesAsList() = moviesDao.getAllFavoritesAsList()
+
 }

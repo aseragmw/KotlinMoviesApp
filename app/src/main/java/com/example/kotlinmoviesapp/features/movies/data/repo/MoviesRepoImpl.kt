@@ -17,6 +17,7 @@ class MoviesRepoImpl @Inject constructor(
         moviesLocalDataSource.getAllMovies(category)
 
     override suspend fun updateAllMovies(category: String) {
+        val favourites = moviesLocalDataSource.getAllFavoritesAsList()
         when (category) {
             TOP_RATED_KEY -> {
                 val movies = moviesRemoteDataSource.getTopRatedMovies()?.results?.map {
@@ -34,12 +35,17 @@ class MoviesRepoImpl @Inject constructor(
                 moviesLocalDataSource.insertAllMovies(movies!!)
             }
         }
+        favourites.forEach {
+            moviesLocalDataSource.updateMovie(it)
+        }
     }
 
-    override fun getMovieById(id: Int): LiveData<MovieEntity> = moviesLocalDataSource.getMovieById(id)
+    override fun getMovieById(id: Int): LiveData<MovieEntity> =
+        moviesLocalDataSource.getMovieById(id)
 
     override suspend fun updateMovie(movie: MovieEntity) = moviesLocalDataSource.updateMovie(movie)
-    override fun getAllFavorites(): LiveData<List<MovieEntity>> = moviesLocalDataSource.getAllFavorites()
+    override fun getAllFavorites(): LiveData<List<MovieEntity>> =
+        moviesLocalDataSource.getAllFavorites()
 
 
 }

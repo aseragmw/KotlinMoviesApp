@@ -82,12 +82,7 @@ fun HomeScreen(viewModel: MoviesViewModel, navController: NavController) {
             }
             Box(modifier = Modifier.height(20.dp))
             movies.value?.let { movieList ->
-                if (movieList.isEmpty()) {
-                    Text(
-                        text = "No movies available",
-                        color = Color.White
-                    )
-                } else {
+                if (movieList.isNotEmpty()) {
                     LazyVerticalGrid(
                         columns = GridCells.Fixed(2),
                         modifier = Modifier.fillMaxSize()
