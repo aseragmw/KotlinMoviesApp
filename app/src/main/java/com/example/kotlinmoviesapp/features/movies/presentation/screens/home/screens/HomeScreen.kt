@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -39,13 +40,16 @@ import com.example.kotlinmoviesapp.features.movies.presentation.viewmodels.Movie
 @Composable
 fun HomeScreen(viewModel: MoviesViewModel, navController: NavController) {
     var selectedCategory by remember { mutableStateOf(TOP_RATED_KEY) }
-    val movies = if (selectedCategory == TOP_RATED_KEY) {
-        viewModel.topRatedMovies.observeAsState()
-    } else if(selectedCategory== NOW_PLAYING_KEY){
-        viewModel.nowPlayingMovies.observeAsState()
-    }
-    else{
-        viewModel.favoritesMovies.observeAsState()
+    val movies = when (selectedCategory) {
+        TOP_RATED_KEY -> {
+            viewModel.topRatedMovies.observeAsState()
+        }
+        NOW_PLAYING_KEY -> {
+            viewModel.nowPlayingMovies.observeAsState()
+        }
+        else -> {
+            viewModel.favoritesMovies.observeAsState()
+        }
     }
 
     Scaffold { padding ->
@@ -97,7 +101,9 @@ fun HomeScreen(viewModel: MoviesViewModel, navController: NavController) {
                 Box(modifier = Modifier.fillMaxSize()) {
                     Text(
                         text = "Loading...",
-                        color = Color.White
+                        color = Color.White,
+                        fontSize = 40.sp,
+                        modifier = Modifier.align(Alignment.Center)
                     )
                 }
             }
