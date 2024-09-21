@@ -25,6 +25,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         val viewModel: MoviesViewModel by viewModels()
+        viewModel.getAllMovies(TOP_RATED_KEY)
+        viewModel.getAllMovies(NOW_PLAYING_KEY)
         setContent {
             val navController = rememberNavController()
             NavHost(
@@ -35,7 +37,7 @@ class MainActivity : ComponentActivity() {
                     HomeScreen(viewModel,navController)
                 }
                 composable("details"){
-                    MovieDetailsScreen(viewModel)
+                    MovieDetailsScreen(viewModel,navController)
                 }
             }
         }
