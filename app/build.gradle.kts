@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -7,10 +9,19 @@ plugins {
 
 
 android {
+    val keystoreFile = project.rootProject.file("local.properties")
+    val properties = Properties()
+    properties.load(keystoreFile.inputStream())
+    val apiKey = properties.getProperty("API_KEY") ?: ""
+
     namespace = "com.example.kotlinmoviesapp"
     compileSdk = 34
 
+    buildFeatures {
+        buildConfig = true
+    }
     defaultConfig {
+        buildConfigField("String", "API_KEY", "\"${apiKey}\"")
         applicationId = "com.example.kotlinmoviesapp"
         minSdk = 24
         targetSdk = 34

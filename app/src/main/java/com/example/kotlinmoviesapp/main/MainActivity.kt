@@ -26,6 +26,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
         val viewModel: MoviesViewModel by viewModels()
         if(isInternetAvailable(this)){
             viewModel.updateAllMovies(TOP_RATED_KEY)
