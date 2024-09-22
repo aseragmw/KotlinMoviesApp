@@ -83,38 +83,35 @@ dependencies {
 
     //ROOM
     val room_version = "2.6.1"
-    implementation("androidx.room:room-runtime:$room_version")
-    annotationProcessor("androidx.room:room-compiler:$room_version")
+    implementation(libs.androidx.room.runtime)
+    annotationProcessor(libs.androidx.room.compiler)
     kapt("androidx.room:room-compiler:$room_version")
-    implementation("androidx.room:room-ktx:$room_version")
+    implementation(libs.androidx.room.ktx)
     //Retrofit
-    val retrofit_version ="2.11.0"
-    implementation ("com.squareup.retrofit2:retrofit:$retrofit_version")
+    implementation (libs.retrofit)
 
     //GSON
-    implementation ("com.squareup.retrofit2:converter-gson:$retrofit_version")
-    implementation ("com.google.code.gson:gson:$retrofit_version")
+    implementation (libs.converter.gson)
+    implementation (libs.gson)
 
     //Coroutines
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9")
+    implementation(libs.kotlinx.coroutines.android)
 
     //Dagger Hilt
-    val hilt_version = "2.48"
-    implementation("com.google.dagger:hilt-android:2.48")
-    kapt ("com.google.dagger:hilt-android-compiler:2.48")
+    implementation(libs.hilt.android)
+    kapt (libs.hilt.android.compiler)
 
     //Coil
-    implementation("io.coil-kt:coil-compose:2.7.0")
+    implementation(libs.coil.compose)
 
     //LiveData
-    implementation("androidx.compose.runtime:runtime-livedata:1.6.8")
+    implementation(libs.androidx.runtime.livedata)
 
     //ViewModel
-    implementation("androidx.fragment:fragment-ktx:1.8.3")
+    implementation(libs.androidx.fragment.ktx)
 
     //Navigation
-    val nav_version = "2.8.1"
-    implementation("androidx.navigation:navigation-compose:$nav_version")
+    implementation(libs.androidx.navigation.compose)
 }
 
 kapt {

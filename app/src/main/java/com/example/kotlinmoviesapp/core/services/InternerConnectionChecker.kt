@@ -3,8 +3,10 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.net.NetworkInfo
 import android.os.Build
+import android.util.Log
 
 fun isInternetAvailable(context: Context): Boolean {
+    Log.d("MainActivityy", "isInternetAvailable: ")
     val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
