@@ -16,7 +16,7 @@ class MoviesDbBuilder @Inject constructor(
                     context,
                     MoviesDB::class.java,
                     "MoviesDB"
-                ).fallbackToDestructiveMigration()
+                ).allowMainThreadQueries().fallbackToDestructiveMigration()
                     .build()
             }
             return INSTANCE!!
