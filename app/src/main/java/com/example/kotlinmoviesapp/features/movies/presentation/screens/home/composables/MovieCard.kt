@@ -17,6 +17,10 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -38,6 +42,9 @@ import com.valentinilk.shimmer.shimmer
 
 @Composable
 fun MovieCard(viewModel: MoviesViewModel, movie: MovieEntity, navController: NavController) {
+    var iconColor by remember { mutableStateOf(
+        if (movie.isFavorite) RED_COLOR else WHITE_COLOR
+    ) }
     Column(
         modifier = Modifier
             .fillMaxWidth(0.5f)
@@ -64,14 +71,18 @@ fun MovieCard(viewModel: MoviesViewModel, movie: MovieEntity, navController: Nav
                 Icon(
                     imageVector= Icons.Default.Favorite,
                     contentDescription = "Favourite",
-                    tint = if(movie.isFavorite) RED_COLOR else WHITE_COLOR,
+                    tint = iconColor,
                     modifier = Modifier
                         .background(Color.Transparent)
                         .padding(end = 15.dp, bottom = 10.dp)
                         .align(Alignment.BottomEnd)
                         .size(30.dp)
                         .clickable {
+                            movie.isFavorite = !movie.isFavorite
+
                             viewModel.addOrRemoveFavorite(movie)
+                            iconColor = if (movie.isFavorite) RED_COLOR else WHITE_COLOR
+
                         }
                 )
             }

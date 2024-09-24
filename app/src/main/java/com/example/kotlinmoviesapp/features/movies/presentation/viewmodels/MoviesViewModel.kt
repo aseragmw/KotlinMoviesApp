@@ -81,7 +81,6 @@ class MoviesViewModel @Inject constructor(
     fun addOrRemoveFavorite(movie: MovieEntity) {
         viewModelScope.launch {
             try {
-                movie.isFavorite = !movie.isFavorite
                 updateMovieUsecase.invoke(movie)
             } catch (e: Exception) {
                 Log.e("MoviesViewModel", "Error fetching movies: ${e.message}")

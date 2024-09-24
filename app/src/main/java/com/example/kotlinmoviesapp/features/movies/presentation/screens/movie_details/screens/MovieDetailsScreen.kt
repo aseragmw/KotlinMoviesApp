@@ -1,5 +1,6 @@
 package com.example.kotlinmoviesapp.features.movies.presentation.screens.movie_details.screens
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -30,7 +31,11 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -54,6 +59,9 @@ import com.example.kotlinmoviesapp.features.movies.presentation.viewmodels.Movie
 @Composable
 fun MovieDetailsScreen(viewModel: MoviesViewModel, navController: NavController) {
     val selectedMovie = viewModel.selectedMovie.observeAsState()
+    var iconColor by remember { mutableStateOf(
+        if (selectedMovie.value?.isFavorite == true) RED_COLOR else WHITE_COLOR
+    ) }
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
@@ -80,6 +88,7 @@ fun MovieDetailsScreen(viewModel: MoviesViewModel, navController: NavController)
         }
     ) { paddding ->
         selectedMovie.value?.let { movie ->
+            Log.d("MovieDetailsScreen", "Movie: ${movie.isFavorite}")
             Column(
                 modifier = Modifier
                     .verticalScroll(rememberScrollState())
@@ -124,7 +133,7 @@ fun MovieDetailsScreen(viewModel: MoviesViewModel, navController: NavController)
                         Icon(
                             imageVector = Icons.Default.Favorite,
                             contentDescription = "Favourite",
-                            tint = if (movie.isFavorite) RED_COLOR else WHITE_COLOR,
+                            tint = iconColor,
                             modifier = Modifier
                                 .padding(10.dp)
                                 .background(Color.Transparent)
@@ -132,7 +141,9 @@ fun MovieDetailsScreen(viewModel: MoviesViewModel, navController: NavController)
                                 .align(Alignment.BottomEnd)
                                 .size(45.dp)
                                 .clickable {
+                                    movie.isFavorite = !movie.isFavorite
                                     viewModel.addOrRemoveFavorite(movie)
+                                    iconColor = if (movie.isFavorite) RED_COLOR else WHITE_COLOR
                                 }
                         )
 

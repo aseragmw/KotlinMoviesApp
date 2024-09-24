@@ -27,6 +27,7 @@ interface MoviesDAO {
 
     @Query("SELECT * FROM Movies where isFavorite = 1")
     fun getAllFavorites():LiveData<List<MovieEntity>>
+
     @Query("SELECT * FROM Movies where isFavorite = 1")
     fun getAllFavoritesAsList():List<MovieEntity>
 
