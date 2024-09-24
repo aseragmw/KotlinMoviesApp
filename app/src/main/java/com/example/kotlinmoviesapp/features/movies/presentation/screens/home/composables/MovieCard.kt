@@ -34,6 +34,7 @@ import com.example.kotlinmoviesapp.core.utils.WHITE_COLOR
 import com.example.kotlinmoviesapp.features.movies.domain.entities.MovieEntity
 import com.example.kotlinmoviesapp.features.movies.presentation.viewmodels.MoviesViewModel
 import com.google.gson.Gson
+import com.valentinilk.shimmer.shimmer
 
 @Composable
 fun MovieCard(viewModel: MoviesViewModel, movie: MovieEntity, navController: NavController) {

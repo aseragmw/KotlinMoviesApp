@@ -112,7 +112,11 @@ dependencies {
 
     //Navigation
     implementation(libs.androidx.navigation.compose)
+
+    //Shimmer
+    implementation(libs.shimmer)
 }
+
 
 kapt {
     correctErrorTypes = true

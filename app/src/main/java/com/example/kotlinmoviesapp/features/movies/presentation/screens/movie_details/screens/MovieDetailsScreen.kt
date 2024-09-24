@@ -21,10 +21,14 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
@@ -46,21 +50,45 @@ import com.example.kotlinmoviesapp.core.utils.WHITE_COLOR
 import com.example.kotlinmoviesapp.features.movies.domain.entities.MovieEntity
 import com.example.kotlinmoviesapp.features.movies.presentation.viewmodels.MoviesViewModel
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MovieDetailsScreen(viewModel: MoviesViewModel,navController: NavController) {
+fun MovieDetailsScreen(viewModel: MoviesViewModel, navController: NavController) {
     val selectedMovie = viewModel.selectedMovie.observeAsState()
-    Scaffold { paddding ->
+    Scaffold(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MAIN_BG_COLOR),
+        topBar = {
+            TopAppBar(
+                title = { Text(text = "Movie Details", color = WHITE_COLOR) },
+                navigationIcon = {
+                    IconButton(onClick = { navController.popBackStack() }) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
+                            contentDescription = "Back",
+                            tint = WHITE_COLOR,
+                            modifier = Modifier
+                                .size(55.dp)
+                                .clickable {
+                                    navController.popBackStack()
+                                }
+                        )
+                    }
+                },
+                colors = TopAppBarDefaults.smallTopAppBarColors(containerColor = MAIN_BG_COLOR)
+            )
+        }
+    ) { paddding ->
         selectedMovie.value?.let { movie ->
-            Box(
-                modifier = Modifier.verticalScroll(rememberScrollState())
+            Column(
+                modifier = Modifier
+                    .verticalScroll(rememberScrollState())
                     .fillMaxSize()
-
                     .background(MAIN_BG_COLOR)
             ) {
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
-
                         .padding(paddding)
                         .background(MAIN_BG_COLOR)
 
@@ -107,19 +135,7 @@ fun MovieDetailsScreen(viewModel: MoviesViewModel,navController: NavController) 
                                     viewModel.addOrRemoveFavorite(movie)
                                 }
                         )
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
-                            contentDescription = "Back",
-                            tint = WHITE_COLOR,
-                            modifier = Modifier
-                                .padding(10.dp)
-                                .padding(start = 15.dp)
-                                .align(Alignment.TopStart)
-                                .size(55.dp)
-                                .clickable {
-                                    navController.popBackStack()
-                                }
-                        )
+
                     }
 
                     Column(
