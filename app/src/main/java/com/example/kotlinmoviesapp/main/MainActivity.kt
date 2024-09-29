@@ -7,6 +7,8 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.splashscreen.SplashScreen
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -25,9 +27,15 @@ import isInternetAvailable
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         enableEdgeToEdge()
 
         val viewModel: MoviesViewModel by viewModels()
+        installSplashScreen().setKeepOnScreenCondition {
+            val isMoviesReady = (viewModel.topRatedMovies.value != null) &&
+                    (viewModel.nowPlayingMovies.value != null)
+            isMoviesReady
+        }
         if(isInternetAvailable(this)){
             viewModel.updateAllMovies(TOP_RATED_KEY)
             viewModel.updateAllMovies(NOW_PLAYING_KEY)
