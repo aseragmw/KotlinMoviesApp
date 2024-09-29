@@ -50,6 +50,7 @@ import com.example.kotlinmoviesapp.core.utils.TEXT_GREY_COLOR
 import com.example.kotlinmoviesapp.core.utils.WHITE_COLOR
 import com.example.kotlinmoviesapp.features.movies.presentation.screens.home.composables.MovieCard
 import com.example.kotlinmoviesapp.features.movies.presentation.viewmodels.MoviesViewModel
+import com.valentinilk.shimmer.shimmer
 
 @SuppressLint("SuspiciousIndentation")
 @Composable
@@ -124,49 +125,36 @@ fun HomeScreen(viewModel: MoviesViewModel, navController: NavController) {
                     items(10){
                         Column(
                             modifier = Modifier
+                                .shimmer()
+                                .fillMaxWidth(0.5f)
                                 .padding(horizontal = 5.dp)
+                                .fillMaxHeight()
+                                .fillMaxWidth(1f)
+                                .padding(vertical = 10.dp)
+                                .background(TEXT_GREY_COLOR)
                         ) {
-                            Column(
-                                modifier = Modifier
-                                    .fillMaxWidth(0.5f)
-                                    .padding(horizontal = 5.dp)
-                                    .fillMaxHeight()
-                                    .padding(horizontal = 3.dp)
-                                    .background(TEXT_GREY_COLOR)
-                            ) {
-                                Box {
-                                    Box(
-                                        modifier = Modifier.height(200.dp)
-                                            .fillMaxWidth(0.5f)
-                                    )
-                                    Icon(
-                                        imageVector= Icons.Default.Favorite,
-                                        contentDescription = "Favourite",
-                                        tint =  WHITE_COLOR,
-                                        modifier = Modifier
-                                            .background(Color.Transparent)
-                                            .padding(end = 15.dp, bottom = 10.dp)
-                                            .align(Alignment.BottomEnd)
-                                            .size(30.dp)
+                            Box {
+                                Box(
+                                    modifier = Modifier.height(200.dp)
+                                        .fillMaxWidth(1f)
+                                        .padding(5.dp)
+                                )
 
-                                    )
-                                }
-                                Box(modifier= Modifier.height(10.dp))
-                                Text(
-                                    text = "",
-                                    color = WHITE_COLOR,
-                                    fontSize = 22.sp,
-                                    fontWeight = FontWeight.SemiBold
-                                )
-                                Box(modifier= Modifier.height(5.dp))
-                                Text(
-                                    text = "",
-                                    color = TEXT_GREY_COLOR,
-                                    fontSize = 20.sp
-                                )
-                                Box(modifier= Modifier.height(10.dp))
                             }
-
+                            Box(modifier= Modifier.height(10.dp))
+                            Text(
+                                text = "",
+                                color = WHITE_COLOR,
+                                fontSize = 22.sp,
+                                fontWeight = FontWeight.SemiBold
+                            )
+                            Box(modifier= Modifier.height(5.dp))
+                            Text(
+                                text = "",
+                                color = TEXT_GREY_COLOR,
+                                fontSize = 20.sp
+                            )
+                            Box(modifier= Modifier.height(10.dp))
                         }
                     }
                 }

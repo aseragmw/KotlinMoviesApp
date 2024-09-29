@@ -36,16 +36,16 @@ class MainActivity : ComponentActivity() {
                     (viewModel.nowPlayingMovies.value != null)
             isMoviesReady
         }
-        if(isInternetAvailable(this)){
+        if(!isInternetAvailable(this)){
             viewModel.updateAllMovies(TOP_RATED_KEY)
             viewModel.updateAllMovies(NOW_PLAYING_KEY)
         }
         else{
             Toast.makeText(this,"No Internet Connection",Toast.LENGTH_SHORT).show()
         }
-        viewModel.getAllMovies(TOP_RATED_KEY)
-        viewModel.getAllMovies(NOW_PLAYING_KEY)
-        viewModel.getAllFavorites()
+//        viewModel.getAllMovies(TOP_RATED_KEY)
+//        viewModel.getAllMovies(NOW_PLAYING_KEY)
+//        viewModel.getAllFavorites()
         setContent {
             val navController = rememberNavController()
             NavHost(

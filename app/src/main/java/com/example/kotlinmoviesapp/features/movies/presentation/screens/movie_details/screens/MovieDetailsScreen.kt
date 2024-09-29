@@ -106,6 +106,7 @@ fun MovieDetailsScreen(viewModel: MoviesViewModel, navController: NavController)
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(400.dp)
+
                             .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp)),
                     ) {
                         LazyRow(
