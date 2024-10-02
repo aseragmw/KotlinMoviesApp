@@ -69,6 +69,7 @@ class MoviesViewModel @Inject constructor(
     }
 
     fun updateAllMovies(category: String) {
+        Log.d("MoviesViewModel", "updateAllMovies: $category")
         viewModelScope.launch {
             try {
                 updateMoviesUsecase.invoke(category)
