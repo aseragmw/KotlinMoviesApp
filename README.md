@@ -8,7 +8,8 @@ KotlinMoviesApp is a simple Android application built with Kotlin, showcasing a 
 - **Movie Details**: Detailed information for each movie is provided on a separate screen.
 - **Favorite Movies**: Users can favorite movies, and these are saved locally using Room Database.
 - **Offline Syncing**: An internet checker is used to sync the movie data when the app detects an active connection.
-
+- **Optional Sync Feature**: Users can choose sync intervals of never, every 8 hours, or daily, allowing for customizable data management.
+  
 ## Screens
 
 1. **Home Screen**: Displays a list of movies that changes according to the selected category.
@@ -50,17 +51,29 @@ KotlinMoviesApp is a simple Android application built with Kotlin, showcasing a 
 ### 11. **Internet Checker**: 
    - Ensures that the app can check for connectivity and syncs movies when a connection is available.
 
+### 12. **Chucker Interceptor**: 
+   - Used for monitoring network requests, providing insights into API interactions.
 
-### 12. **Clean Architecture**: 
+### 13. **Clean Architecture**: 
    - The project follows Clean Architecture principles, separating the app into layers (presentation, domain, and data) to ensure scalability and maintainability.
 
 ## Screenshots
-![Apple iPhone 11 Pro Max Screenshot 0](https://github.com/user-attachments/assets/cffa6f3a-9725-4be1-9856-015757e0b0c9)
-![Apple iPhone 11 Pro Max Screenshot 1](https://github.com/user-attachments/assets/0f6587e9-632e-4a95-88de-fb9e55643843)
-![Apple iPhone 11 Pro Max Screenshot 2](https://github.com/user-attachments/assets/d508ebb2-a6b4-484b-b6fe-b2cb1161109e)
-![Apple iPhone 11 Pro Max Screenshot 5](https://github.com/user-attachments/assets/853820f7-d7b7-4587-a4c4-829b590cf8e0)
-![Apple iPhone 11 Pro Max Screenshot 4](https://github.com/user-attachments/assets/c63942c4-b968-4d58-9d20-3553536bf169)
-![Apple iPhone 11 Pro Max Screenshot 3](https://github.com/user-attachments/assets/f021476c-8d2d-4825-801b-9cef5d293206)
-![Apple iPhone 11 Pro Max Screenshot 6](https://github.com/user-attachments/assets/e5d7dc98-4e79-4282-9494-a0741d28058d)
-![Apple iPhone 11 Pro Max Screenshot 7](https://github.com/user-attachments/assets/60b6d788-ac20-45e3-9f36-49405505b756)
-![Apple iPhone 11 Pro Max Screenshot 8](https://github.com/user-attachments/assets/39521869-1884-471f-ad31-ca4902f00552)
+<p float="left">
+  <img src="https://github.com/user-attachments/assets/cffa6f3a-9725-4be1-9856-015757e0b0c9" width="200" />
+  <img src="https://github.com/user-attachments/assets/0f6587e9-632e-4a95-88de-fb9e55643843" width="200" />
+</p>
+<p float="left">
+  <img src="https://github.com/user-attachments/assets/d508ebb2-a6b4-484b-b6fe-b2cb1161109e" width="200" />
+  <img src="https://github.com/user-attachments/assets/853820f7-d7b7-4587-a4c4-829b590cf8e0" width="200" />
+</p>
+<p float="left">
+  <img src="https://github.com/user-attachments/assets/c63942c4-b968-4d58-9d20-3553536bf169" width="200" />
+  <img src="https://github.com/user-attachments/assets/f021476c-8d2d-4825-801b-9cef5d293206" width="200" />
+</p>
+<p float="left">
+  <img src="https://github.com/user-attachments/assets/e5d7dc98-4e79-4282-9494-a0741d28058d" width="200" />
+  <img src="https://github.com/user-attachments/assets/60b6d788-ac20-45e3-9f36-49405505b756" width="200" />
+</p>
+<p float="left">
+  <img src="https://github.com/user-attachments/assets/39521869-1884-471f-ad31-ca4902f00552" width="200" />
+</p>
