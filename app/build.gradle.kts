@@ -118,6 +118,10 @@ dependencies {
 
     //Splash API
     implementation(libs.androidx.core.splashscreen)
+
+    //Chucker
+    debugImplementation (libs.library)
+    releaseImplementation (libs.library.no.op)
 }
 
 

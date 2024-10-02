@@ -42,7 +42,7 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun providesMoviesRemoteDataSource(): MoviesRemoteDataSource = MoviesRemoteDataSource()
+    fun providesMoviesRemoteDataSource(@ApplicationContext context: Context): MoviesRemoteDataSource = MoviesRemoteDataSource(context)
 
     @Provides
     @Singleton

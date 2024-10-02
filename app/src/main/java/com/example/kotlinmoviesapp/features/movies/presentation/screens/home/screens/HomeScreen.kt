@@ -57,7 +57,7 @@ import com.valentinilk.shimmer.shimmer
 fun HomeScreen(viewModel: MoviesViewModel, navController: NavController) {
     var selectedCategory by remember { mutableStateOf(TOP_RATED_KEY) }
     val movies
-    = when (selectedCategory) {
+            = when (selectedCategory) {
         TOP_RATED_KEY -> {
             viewModel.topRatedMovies.observeAsState()
         }
@@ -173,24 +173,24 @@ fun HomeScreen(viewModel: MoviesViewModel, navController: NavController) {
                     }
                 } else {
                     if(selectedCategory == FAVOURITES_KEY)
-                    Column(modifier = Modifier.fillMaxSize(),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Center
-                    ) {
-                        Text(
-                            text = "No Favourites Yet",
-                            color = Color.White,
-                            fontSize = 30.sp,
-                        )
-                        Box(modifier = Modifier.height(30.dp))
-                        Image(
-                            painter = painterResource(R.drawable.not_found),
-                            contentDescription = "not found",
-                            modifier = Modifier.height(200.dp)
-                                .width(200.dp)
-                                . clip(RoundedCornerShape(50.dp)),
-                        )
-                    }
+                        Column(modifier = Modifier.fillMaxSize(),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center
+                        ) {
+                            Text(
+                                text = "No Favourites Yet",
+                                color = Color.White,
+                                fontSize = 30.sp,
+                            )
+                            Box(modifier = Modifier.height(30.dp))
+                            Image(
+                                painter = painterResource(R.drawable.not_found),
+                                contentDescription = "not found",
+                                modifier = Modifier.height(200.dp)
+                                    .width(200.dp)
+                                    . clip(RoundedCornerShape(50.dp)),
+                            )
+                        }
                 }
             }
         }
